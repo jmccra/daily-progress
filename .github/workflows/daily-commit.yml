@@ -21,18 +21,12 @@ jobs:
           git config user.name "Julian McCrary"
           git config user.email "mccrary.julian@gmail.com"
 
-      - name: Check for changes
-        id: check_changes
+      - name: Update progress log
+        run: |
+          echo "$(date +'%Y-%m-%d %H:%M:%S UTC') - daily check-in" >> progress.log
+
+      - name: Commit and push
         run: |
           git add -A
-          if git diff --cached --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Commit and push if changes exist
-        if: steps.check_changes.outputs.changed == 'true'
-        run: |
           git commit -m "progress: $(date +'%Y-%m-%d')"
           git push

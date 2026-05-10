@@ -1,20 +1,16 @@
 name: Daily Progress Commit
-
 on:
   schedule:
     # 8pm PT = 3am UTC (4am UTC during daylight saving time)
     - cron: '0 3 * * *'
-  workflow_dispatch: # allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   commit-progress:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
       - name: Configure git
         run: |
